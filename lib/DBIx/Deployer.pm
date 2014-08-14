@@ -314,7 +314,7 @@ The directory path where you will store your patch files.  PLEASE NOTE: DBIx::De
 
 =head2 deployer_db_file (Str)
 
-This is the file path where you would like your DBD::Deployer SQLite database to be stored. This is required if using SQLite to manage your patch information. 
+This is the file path where you would like your DBI::Deployer SQLite database to be stored. This is required if using SQLite to manage your patch information. 
 
 =head2 deployer_db (DBI::db)
 
