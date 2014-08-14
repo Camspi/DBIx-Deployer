@@ -346,7 +346,7 @@ If your database supports transactions, C<deploy_sql> will be rolled back if ver
 
 =head2 keep_newlines (Bool OPTIONAL defaults to false)
 
-For convenience and SQL readability, newlines are allowed in the SQL string values in the JSON patch files contrary to the JSON specification.  By default, these newlines will be converted to spaces before being passed to the parser.  If for some reason these transformation must not be done, set this attribute to true.
+For convenience and SQL readability, newlines are allowed in the SQL string values in the JSON patch files contrary to the JSON specification.  By default, these newlines will be converted to spaces before being passed to the parser.  If for some reason these transformations must not be done, set this attribute to true.
 
 =head1 METHODS
 
