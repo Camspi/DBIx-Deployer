@@ -25,4 +25,8 @@ requires:
   JSON::XS: '0'
   Modern::Perl: '0'
   Moops: '0'
-version: 1.0.0
+resources:
+  bugtracker: https://github.com/Camspi/DBIx-Deployer/issues
+  homepage: https://github.com/Camspi/DBIx-Deployer
+  repository: https://github.com/Camspi/DBIx-Deployer.git
+version: 1.0.1
