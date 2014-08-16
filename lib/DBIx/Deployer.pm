@@ -1,7 +1,7 @@
 use Modern::Perl;
 use Moops;
 
-our $VERSION = 1.0.1;
+our $VERSION = 1.0.2;
 
 class DBIx::Deployer::Patch {
     use Digest::MD5;

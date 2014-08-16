@@ -29,4 +29,4 @@ resources:
   bugtracker: https://github.com/Camspi/DBIx-Deployer/issues
   homepage: https://github.com/Camspi/DBIx-Deployer
   repository: https://github.com/Camspi/DBIx-Deployer.git
-version: 1.0.1
+version: 1.0.2

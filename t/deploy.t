@@ -21,7 +21,7 @@ keep_newlines();
 done_testing();
 
 sub use_dbi_db {
-    my $t1 = File::Temp->new();
+    my $t1 = File::Temp->new(EXLOCK => 0);
 
     my $db = DBI->connect('dbi:SQLite:' . $t1->filename);
 
@@ -43,7 +43,7 @@ sub use_dbi_db {
 }
 
 sub deployer_patch_table {
-    my $t1 = File::Temp->new();
+    my $t1 = File::Temp->new(EXLOCK => 0);
 
     my $db = DBI->connect('dbi:SQLite:' . $t1->filename);
 
@@ -67,8 +67,8 @@ sub deployer_patch_table {
 }
 
 sub simple_deploy {
-   my $t1 = File::Temp->new();
-    my $t2 = File::Temp->new();
+   my $t1 = File::Temp->new(EXLOCK => 0);
+    my $t2 = File::Temp->new(EXLOCK => 0);
     
     my $d = DBIx::Deployer->new(
       target_dsn => "dbi:SQLite:" . $t1->filename,
@@ -82,8 +82,8 @@ sub simple_deploy {
 }
 
 sub verify_failed {
-    my $t1 = File::Temp->new();
-    my $t2 = File::Temp->new();
+    my $t1 = File::Temp->new(EXLOCK => 0);
+    my $t2 = File::Temp->new(EXLOCK => 0);
     
     my $d = DBIx::Deployer->new(
       target_dsn => "dbi:SQLite:" . $t1->filename,
@@ -103,8 +103,8 @@ sub verify_failed {
 }
 
 sub dependencies {
-    my $t1 = File::Temp->new();
-    my $t2 = File::Temp->new();
+    my $t1 = File::Temp->new(EXLOCK => 0);
+    my $t2 = File::Temp->new(EXLOCK => 0);
     
     my $d = DBIx::Deployer->new(
       target_dsn => "dbi:SQLite:" . $t1->filename,
@@ -121,8 +121,8 @@ sub dependencies {
 }
 
 sub multipatch {
-    my $t1 = File::Temp->new();
-    my $t2 = File::Temp->new();
+    my $t1 = File::Temp->new(EXLOCK => 0);
+    my $t2 = File::Temp->new(EXLOCK => 0);
     
     my $d = DBIx::Deployer->new(
       target_dsn => "dbi:SQLite:" . $t1->filename,
@@ -134,8 +134,8 @@ sub multipatch {
 }
 
 sub no_verify {
-    my $t1 = File::Temp->new();
-    my $t2 = File::Temp->new();
+    my $t1 = File::Temp->new(EXLOCK => 0);
+    my $t2 = File::Temp->new(EXLOCK => 0);
     
     my $d = DBIx::Deployer->new(
       target_dsn => "dbi:SQLite:" . $t1->filename,
@@ -147,8 +147,8 @@ sub no_verify {
 }
 
 sub missing_verify {
-    my $t1 = File::Temp->new();
-    my $t2 = File::Temp->new();
+    my $t1 = File::Temp->new(EXLOCK => 0);
+    my $t2 = File::Temp->new(EXLOCK => 0);
     
     my $d = DBIx::Deployer->new(
       target_dsn => "dbi:SQLite:" . $t1->filename,
@@ -160,8 +160,8 @@ sub missing_verify {
 }
 
 sub keep_newlines {
-   my $t1 = File::Temp->new();
-    my $t2 = File::Temp->new();
+   my $t1 = File::Temp->new(EXLOCK => 0);
+    my $t2 = File::Temp->new(EXLOCK => 0);
     
     my $d = DBIx::Deployer->new(
       target_dsn => "dbi:SQLite:" . $t1->filename,
