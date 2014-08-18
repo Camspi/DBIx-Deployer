@@ -1,3 +1,4 @@
+1.0.3 - Correct $VERSION scope and favor InstanceOf over classnames for types
 1.0.2 - Set File::Temp EXLOCK option to false for BSD systems
 1.0.1 - Typos, Dist::Zilla support
 1.0.0 - Initial release

@@ -1,9 +1,8 @@
 use Modern::Perl;
 use Moops;
 
-our $VERSION = 1.0.2;
 
-class DBIx::Deployer::Patch {
+class DBIx::Deployer::Patch 1.0.3 {
     use Digest::MD5;
 
     has deployed => ( is => 'rw', isa => Bool, default => 0 );
@@ -17,7 +16,7 @@ class DBIx::Deployer::Patch {
     has verify_sql => ( is => 'ro', isa => Str );
     has verify_sql_args => ( is => 'ro', isa => ArrayRef );
     has verify_expects => ( is => 'ro', isa => ArrayRef );
-    has db => ( is => 'ro', isa => 'DBI::db', required => true );
+    has db => ( is => 'ro', isa => InstanceOf['DBI::db'], required => true );
 
     method deploy {
         if($self->deploy_sql_args){
@@ -113,12 +112,12 @@ class DBIx::Deployer::Patch {
     }
 }
 
-class DBIx::Deployer {
+class DBIx::Deployer 1.0.3 {
     use DBI;
     use DBD::SQLite;
     use JSON::XS;
 
-    has target_db => ( is => 'lazy', isa => 'DBI::db',
+    has target_db => ( is => 'lazy', isa => InstanceOf['DBI::db'],
         builder => method {
             die 'Missing attribute target_dsn.  Optionally, you may pass a DBI::db as target_db' unless $self->target_dsn;
             DBI->connect(
@@ -136,7 +135,7 @@ class DBIx::Deployer {
     has patch_path => ( is => 'ro', isa => Str, required => true );
     has deployer_db_file => ( is => 'ro', isa => Str );
 
-    has deployer_db => ( is => 'lazy', isa => 'DBI::db',
+    has deployer_db => ( is => 'lazy', isa => InstanceOf['DBI::db'],
         builder => method {
             die 'Missing attribute deployer_db_file if using SQLite for patch management' unless $self->deployer_db_file;
             my $db = DBI->connect('dbi:SQLite:dbname=' . $self->deployer_db_file) or die $@;
@@ -238,7 +237,7 @@ class DBIx::Deployer {
         if($@){ die $@; }
     }
 
-    method _init (DBI::db $db){
+    method _init (InstanceOf['DBI::db'] $db){
         $db->do(
             (sprintf q|CREATE TABLE %s (name VARCHAR UNIQUE, deployed INT, verified INT)|, $self->deployer_patch_table)
         ) or die $@;
