@@ -1,8 +1,9 @@
+use 5.14.2;
 use Modern::Perl;
 use Moops;
 
 
-class DBIx::Deployer::Patch 1.0.3 {
+class DBIx::Deployer::Patch 1.0.4 {
     use Digest::MD5;
 
     has deployed => ( is => 'rw', isa => Bool, default => 0 );
@@ -112,7 +113,7 @@ class DBIx::Deployer::Patch 1.0.3 {
     }
 }
 
-class DBIx::Deployer 1.0.3 {
+class DBIx::Deployer 1.0.4 {
     use DBI;
     use DBD::SQLite;
     use JSON::XS;
@@ -205,7 +206,7 @@ class DBIx::Deployer 1.0.3 {
             {}, $name, 0, 0) or die $@;
     }
 
-    method update_patch (DBIx::Deployer::Patch $patch) {
+    method update_patch (InstanceOf['DBIx::Deployer::Patch'] $patch) {
         $self->deployer_db->do(
             (sprintf q|UPDATE %s SET deployed = ?, verified = ? WHERE name = ?|, $self->deployer_patch_table),
             {}, map{ $patch->$_ } qw(deployed verified name)
@@ -220,7 +221,7 @@ class DBIx::Deployer 1.0.3 {
         return true;
     }
 
-    method deploy (DBIx::Deployer::Patch $patch) {
+    method deploy (InstanceOf['DBIx::Deployer::Patch'] $patch) {
         return if $patch->deployed;
 
         my @dependencies = @{ $patch->dependencies || [] };
