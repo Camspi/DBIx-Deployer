@@ -3,7 +3,7 @@ use Modern::Perl;
 use Moops;
 
 
-class DBIx::Deployer::Patch 1.0.4 {
+class DBIx::Deployer::Patch 1.0.5 {
     use Digest::MD5;
 
     has deployed => ( is => 'rw', isa => Bool, default => 0 );
@@ -113,7 +113,7 @@ class DBIx::Deployer::Patch 1.0.4 {
     }
 }
 
-class DBIx::Deployer 1.0.4 {
+class DBIx::Deployer 1.0.5 {
     use DBI;
     use DBD::SQLite;
     use JSON::XS;

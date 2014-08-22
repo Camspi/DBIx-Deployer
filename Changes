@@ -1,3 +1,4 @@
+1.0.5 - Fix typos in synopsis and deployer_db_file
 1.0.4 - Missed a few InstanceOf opportunities
 1.0.3 - Correct $VERSION scope and favor InstanceOf over classnames for types
 1.0.2 - Set File::Temp EXLOCK option to false for BSD systems
