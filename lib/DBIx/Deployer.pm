@@ -3,7 +3,7 @@ use Modern::Perl;
 use Moops;
 
 
-class DBIx::Deployer::Patch 1.0.5 {
+class DBIx::Deployer::Patch 1.0.6 {
     use Digest::MD5;
 
     has deployed => ( is => 'rw', isa => Bool, default => 0 );
@@ -113,7 +113,7 @@ class DBIx::Deployer::Patch 1.0.5 {
     }
 }
 
-class DBIx::Deployer 1.0.5 {
+class DBIx::Deployer 1.0.6 {
     use DBI;
     use DBD::SQLite;
     use JSON::XS;
@@ -229,7 +229,12 @@ class DBIx::Deployer 1.0.5 {
         if(@dependencies){
             my $patches = $self->patches;
             foreach my $name (@dependencies){
-              $self->deploy($patches->{$name});
+              if($patches->{$name}){
+                $self->deploy($patches->{$name});
+              }
+              else{
+                die qq|Patch $name is not defined|;
+              }
             }
         }
 

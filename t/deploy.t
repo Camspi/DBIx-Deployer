@@ -18,6 +18,7 @@ multipatch();
 no_verify();
 missing_verify();
 keep_newlines();
+patch_undefined();
 done_testing();
 
 sub use_dbi_db {
@@ -173,4 +174,18 @@ sub keep_newlines {
     ok $d->deploy_all, 'Can deploy newlines';
 }
 
+sub patch_undefined {
+    my $t1 = File::Temp->new(EXLOCK => 0);
+    my $t2 = File::Temp->new(EXLOCK => 0);
+    
+    my $d = DBIx::Deployer->new(
+      target_dsn => "dbi:SQLite:" . $t1->filename,
+      patch_path => "$FindBin::Bin/patch_undefined",
+      deployer_db_file => $t2->filename,
+    );
+    
+    my $patches = $d->patches;
+    my $insert_row = $patches->{'insert into foo'};
 
+    throws_ok { $d->deploy($insert_row) } qr/Patch create table foo is not defined.*/, 'Useful error message for undefined dependency';
+}
