@@ -187,5 +187,5 @@ sub patch_undefined {
     my $patches = $d->patches;
     my $insert_row = $patches->{'insert into foo'};
 
-    throws_ok { $d->deploy($insert_row) } qr/Patch create table foo is not defined.*/, 'Useful error message for undefined dependency';
+    throws_ok { $d->deploy($insert_row) } qr/Patch "insert into foo" failed: Patch dependency "create table foo" is not defined\..*/, 'Useful error message for undefined dependency';
 }

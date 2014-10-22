@@ -21,10 +21,10 @@ name: DBIx-Deployer
 provides:
   DBIx::Deployer:
     file: lib/DBIx/Deployer.pm
-    version: v1.0.6
+    version: v1.0.7
   DBIx::Deployer::Patch:
     file: lib/DBIx/Deployer.pm
-    version: v1.0.6
+    version: v1.0.7
 requires:
   DBD::SQLite: '0'
   DBI: '0'
@@ -37,4 +37,4 @@ resources:
   bugtracker: https://github.com/Camspi/DBIx-Deployer/issues
   homepage: https://github.com/Camspi/DBIx-Deployer
   repository: https://github.com/Camspi/DBIx-Deployer.git
-version: v1.0.6
+version: v1.0.7

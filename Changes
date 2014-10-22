@@ -1,3 +1,4 @@
+1.0.7 - More useful diagnostic message for undefined patches++
 1.0.6 - Travis config and a more useful diagnostic message for undefined patches
 1.0.5 - Fix typos in synopsis and deployer_db_file
 1.0.4 - Missed a few InstanceOf opportunities
