@@ -3,7 +3,7 @@ use Modern::Perl;
 use Moops;
 
 
-class DBIx::Deployer::Patch 1.0.7 {
+class DBIx::Deployer::Patch 1.0.8 {
     use Digest::MD5;
 
     has deployed => ( is => 'rw', isa => Bool, default => 0 );
@@ -113,7 +113,7 @@ class DBIx::Deployer::Patch 1.0.7 {
     }
 }
 
-class DBIx::Deployer 1.0.7 {
+class DBIx::Deployer 1.0.8 {
     use DBI;
     use DBD::SQLite;
     use JSON::XS;
@@ -239,8 +239,9 @@ class DBIx::Deployer 1.0.7 {
         }
 
         eval{ $patch->deploy };
+        my $error = $@;
         $self->update_patch($patch);
-        if($@){ die $@; }
+        if($error){ die $error; }
     }
 
     method _init (InstanceOf['DBI::db'] $db){
