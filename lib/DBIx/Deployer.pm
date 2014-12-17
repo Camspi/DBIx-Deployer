@@ -3,8 +3,10 @@ use Modern::Perl;
 use Moops;
 
 
-class DBIx::Deployer::Patch 1.0.8 {
+class DBIx::Deployer::Patch 1.1.0 {
     use Digest::MD5;
+    use Term::ANSIColor;
+    use Data::Printer colored => 1;
 
     has deployed => ( is => 'rw', isa => Bool, default => 0 );
     has verified => ( is => 'rw', isa => Bool, default => 0 );
@@ -29,7 +31,7 @@ class DBIx::Deployer::Patch 1.0.8 {
     }
 
     before deploy {
-        die $self->name . " is already deployed" if $self->deployed;
+        die colored(['red'], $self->name . " is already deployed") if $self->deployed;
         if($self->supports_transactions){ $self->db->begin_work; }
     }
 
@@ -67,7 +69,7 @@ class DBIx::Deployer::Patch 1.0.8 {
             if($self->supports_transactions){
                 $self->db->commit;
             }
-            say $self->name . " completed successfully";
+            say Term::ANSIColor::colored(['green'], $self->name . " completed successfully");
         }
         else{
             $self->handle_error($self->name . " failed verification");
@@ -79,11 +81,18 @@ class DBIx::Deployer::Patch 1.0.8 {
             $self->deployed(0);
             $self->db->rollback or die $self->name . ": " . $self->db->errstr;
         }
-        die $self->name . ": " . $error;
+        die colored(['red'], $self->name . ": " . $error);
     }
  
     method _check_signature ( ArrayRef $result ){
-        $self->_signature($result) eq $self->_signature($self->verify_expects);
+        my $is_equal = $self->_signature($result) eq $self->_signature($self->verify_expects);
+        unless ( $is_equal ) {
+            say 'Expected:';
+            say p( $self->verify_expects );
+            say "\nReceived:";
+            say p( $result );
+        }
+        return $is_equal;
     }
 
     multi method _signature( HashRef $params ) {
@@ -113,10 +122,12 @@ class DBIx::Deployer::Patch 1.0.8 {
     }
 }
 
-class DBIx::Deployer 1.0.8 {
+class DBIx::Deployer 1.1.0 {
     use DBI;
     use DBD::SQLite;
     use JSON::XS;
+    use Term::ANSIColor;
+    use autodie;
 
     has target_db => ( is => 'lazy', isa => InstanceOf['DBI::db'],
         builder => method {
@@ -165,7 +176,7 @@ class DBIx::Deployer 1.0.8 {
 
         my $patches = $self->_patches_hashref;
 
-        opendir(my $dh, $self->patch_path) or die $@;
+        opendir(my $dh, $self->patch_path);
         my @patch_files = sort readdir($dh);
         closedir($dh);
 
@@ -175,7 +186,7 @@ class DBIx::Deployer 1.0.8 {
             my $json;
             {
                 local $/ = undef;
-                open(my $fh, '<', $self->patch_path . '/' . $file) or die $@;
+                open(my $fh, '<', $self->patch_path . '/' . $file);
                 $json = <$fh>;
                 close($fh);
             }
@@ -233,7 +244,7 @@ class DBIx::Deployer 1.0.8 {
                 $self->deploy($patches->{$name});
               }
               else{
-                die qq|Patch "| . $patch->name . qq|" failed: Patch dependency "$name" is not defined.|;
+                die colored(['red'], q|Patch "| . $patch->name . qq|" failed: Patch dependency "$name" is not defined.|);
               }
             }
         }

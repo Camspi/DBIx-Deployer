@@ -96,9 +96,9 @@ sub verify_failed {
     my $create_table = $patches->{'create table foo'};
     my $insert_row = $patches->{'insert into foo'};
 
-    throws_ok { $insert_row->deploy } qr/no such table: foo/, 'Throws no such table';
+    throws_ok { eval { $insert_row->deploy; }; say $@; die $@; } qr/no such table: foo/, 'Throws no such table';
     $create_table->deploy;
-    throws_ok { $insert_row->deploy } qr/insert into foo failed verification/, 'Throws failed verification';
+    throws_ok { eval { $insert_row->deploy; }; say $@; die $@; } qr/insert into foo failed verification/, 'Throws failed verification';
     my ($count) = @{ $d->target_db->selectcol_arrayref(q|SELECT count(*) FROM foo|) };
     is $count, 0, 'Changes were rolled back';
 }
@@ -157,7 +157,7 @@ sub missing_verify {
       deployer_db_file => $t2->filename,
     );
     
-    throws_ok { $d->deploy_all } qr/missing verification/, 'Patch throws ok when missing verification';
+    throws_ok { eval { $d->deploy_all }; say $@; die $@; } qr/missing verification/, 'Patch throws ok when missing verification';
 }
 
 sub keep_newlines {
@@ -187,5 +187,5 @@ sub patch_undefined {
     my $patches = $d->patches;
     my $insert_row = $patches->{'insert into foo'};
 
-    throws_ok { $d->deploy($insert_row) } qr/Patch "insert into foo" failed: Patch dependency "create table foo" is not defined\..*/, 'Useful error message for undefined dependency';
+    throws_ok { eval { $d->deploy($insert_row) }; say $@; die; } qr/Patch "insert into foo" failed: Patch dependency "create table foo" is not defined\..*/, 'Useful error message for undefined dependency';
 }

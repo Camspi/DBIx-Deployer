@@ -23,10 +23,13 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "DBD::SQLite" => 0,
     "DBI" => 0,
+    "Data::Printer" => 0,
     "Digest::MD5" => 0,
     "JSON::XS" => 0,
     "Modern::Perl" => 0,
-    "Moops" => 0
+    "Moops" => 0,
+    "Term::ANSIColor" => 0,
+    "autodie" => 0
   },
   "TEST_REQUIRES" => {
     "Data::Dumper" => 0,
@@ -36,7 +39,7 @@ my %WriteMakefileArgs = (
     "Test::More" => 0,
     "lib" => 0
   },
-  "VERSION" => "v1.0.8",
+  "VERSION" => "v1.1.0",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -47,6 +50,7 @@ my %FallbackPrereqs = (
   "DBD::SQLite" => 0,
   "DBI" => 0,
   "Data::Dumper" => 0,
+  "Data::Printer" => 0,
   "Digest::MD5" => 0,
   "ExtUtils::MakeMaker" => 0,
   "File::Temp" => 0,
@@ -54,8 +58,10 @@ my %FallbackPrereqs = (
   "JSON::XS" => 0,
   "Modern::Perl" => 0,
   "Moops" => 0,
+  "Term::ANSIColor" => 0,
   "Test::Exception" => 0,
   "Test::More" => 0,
+  "autodie" => 0,
   "lib" => 0
 );
 

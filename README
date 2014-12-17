@@ -2,7 +2,7 @@ NAME
     DBIx::Deployer - Light-weight database patch utility
 
 VERSION
-    version v1.0.8
+    version v1.1.0
 
 SYNOPSIS
         use DBIx::Deployer;
