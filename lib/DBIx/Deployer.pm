@@ -3,7 +3,7 @@ use Modern::Perl;
 use Moops;
 
 
-class DBIx::Deployer::Patch 1.1.0 {
+class DBIx::Deployer::Patch 1.1.1 {
     use Digest::MD5;
     use Term::ANSIColor;
     use Data::Printer colored => 1;
@@ -23,7 +23,8 @@ class DBIx::Deployer::Patch 1.1.0 {
 
     method deploy {
         if($self->deploy_sql_args){
-          $self->db->do($self->deploy_sql, {}, $self->deploy_sql_args) or $self->handle_error($self->db->errstr);
+          $self->db->do($self->deploy_sql, {}, @{ $self->deploy_sql_args })
+            or $self->handle_error($self->db->errstr);
         }
         else{
           $self->db->do($self->deploy_sql) or $self->handle_error($self->db->errstr);
@@ -53,7 +54,7 @@ class DBIx::Deployer::Patch 1.1.0 {
         my $result;
 
         if($self->verify_sql_args){
-            $result = $self->db->selectall_arrayref($self->verify_sql, {}, $self->verify_sql_args)
+            $result = $self->db->selectall_arrayref($self->verify_sql, {}, @{ $self->verify_sql_args })
               or $self->handle_error($self->db->errstr);
         }
         else{
@@ -122,7 +123,7 @@ class DBIx::Deployer::Patch 1.1.0 {
     }
 }
 
-class DBIx::Deployer 1.1.0 {
+class DBIx::Deployer 1.1.1 {
     use DBI;
     use DBD::SQLite;
     use JSON::XS;

@@ -1,3 +1,4 @@
+1.1.1 - Fix SQL placeholders bug
 1.1.0 - ANSI colored output and verification failure dumps
 1.0.8 - Capture patch errors in narrower scope
 1.0.7 - More useful diagnostic message for undefined patches++
