@@ -190,13 +190,13 @@ subtest 'script_patch' => sub {
     );
     
     my $patch = $d->patches->{'create table foo'};
-    push @{ $patch->deploy_script_args }, $t1->filename;
+    $patch->deploy_script_args([$t1->filename]);
     $patch->deploy;
     ok $patch->verified, 'Can deploy using scripts';
 
 
     my $script_fails = $d->patches->{'script fails'};
-    push @{ $script_fails->deploy_script_args }, $t1->filename;
+    $script_fails->deploy_script_args([$t1->filename]);
     throws_ok { eval { $script_fails->deploy }; say $@; die; } qr/exited with status \d+/i, 'Returns exit status on non-zero failure';
 };
 

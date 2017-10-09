@@ -3,7 +3,7 @@ use Modern::Perl;
 use Moops;
 
 
-class DBIx::Deployer::Patch 1.2.0 {
+class DBIx::Deployer::Patch 1.2.1 {
     use Digest::MD5;
     use Term::ANSIColor qw(colored);
     use Data::Printer colored => 1;
@@ -138,7 +138,7 @@ class DBIx::Deployer::Patch 1.2.0 {
     }
 }
 
-class DBIx::Deployer 1.2.0 {
+class DBIx::Deployer 1.2.1 {
     use DBI;
     use DBD::SQLite;
     use JSON::XS;
