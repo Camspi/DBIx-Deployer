@@ -177,13 +177,13 @@ PATCH FILES
     deploy_sql_args will be used for those parameters. See DBI and
     http://www.bobby-tables.com for more information about bind parameters.
 
-  deploy_script (Str)
+  deploy_script (Str) *EXPERIMENTAL*
 
     The deploy_script will be passed as an argument to the system command.
     Scripts are expected to handle transactions on their own. A non-zero
     exit status is reported as a failure.
 
-  deploy_script_args (ArrayRef)
+  deploy_script_args (ArrayRef) *EXPERIMENTAL*
 
     The deploy_script_args are passed to the system command with the
     deploy_script in PROGRAM LIST syntax. It may be useful to manipulate

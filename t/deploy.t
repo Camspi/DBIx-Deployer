@@ -180,6 +180,7 @@ subtest 'patch_undefined' => sub {
 
 
 subtest 'script_patch' => sub {
+    plan skip_all => 'Skipping developer tests' unless $ENV{DEVELOPER_TESTS};
     my $t1 = File::Temp->new(EXLOCK => 0);
     my $t2 = File::Temp->new(EXLOCK => 0);
     

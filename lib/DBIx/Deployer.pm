@@ -3,7 +3,7 @@ use Modern::Perl;
 use Moops;
 
 
-class DBIx::Deployer::Patch 1.2.1 {
+class DBIx::Deployer::Patch 1.2.2 {
     use Digest::MD5;
     use Term::ANSIColor qw(colored);
     use Data::Printer colored => 1;
@@ -138,7 +138,7 @@ class DBIx::Deployer::Patch 1.2.1 {
     }
 }
 
-class DBIx::Deployer 1.2.1 {
+class DBIx::Deployer 1.2.2 {
     use DBI;
     use DBD::SQLite;
     use JSON::XS;
@@ -434,11 +434,11 @@ Patch files may contain multiple patches, but a single patch within a patch file
 
 If using bind parameters in your C<deploy_sql> statement, the values in C<deploy_sql_args> will be used for those parameters.  See L<DBI> and L<http://www.bobby-tables.com> for more information about bind parameters.
 
-=head3 deploy_script (Str)
+=head3 deploy_script (Str) *EXPERIMENTAL*
 
 The C<deploy_script> will be passed as an argument to the C<system> command.  Scripts are expected to handle transactions on their own.  A non-zero exit status is reported as a failure.
 
-=head3 deploy_script_args (ArrayRef)
+=head3 deploy_script_args (ArrayRef) *EXPERIMENTAL*
 
 The C<deploy_script_args> are passed to the C<system> command with the C<deploy_script> in PROGRAM LIST syntax.  It may be useful to manipulate this attribute at runtime to pass environment-specific arguments.
 
